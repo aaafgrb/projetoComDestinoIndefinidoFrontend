@@ -1,17 +1,23 @@
 <script setup lang="ts">
+import { useApiRequestStore } from '@/stores/ApiRequest';
 import { useTemplateRef } from 'vue';
 
+const emit = defineEmits(['change'])
 
 const idInput = useTemplateRef("idInput");
 const nameInput = useTemplateRef("nameInput");
 
+const apiRequestStore = useApiRequestStore()
+const userApiPath = "/user/"
 
 const getBtnClick = (_e: Event) => {
-
+  if (!idInput.value?.value) return;
+  apiRequestStore.getRequest(`${userApiPath}${idInput.value.value}`).then(e => emit('change', e))
 }
 
 const createBtnClick = (_e: Event) => {
-
+  if (!nameInput.value?.value) return;
+  apiRequestStore.postRequest(`${userApiPath}`, { name: nameInput.value.value }).then(e => emit('change', e))
 }
 </script>
 
@@ -27,5 +33,4 @@ const createBtnClick = (_e: Event) => {
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

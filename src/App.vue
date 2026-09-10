@@ -6,12 +6,18 @@ import UserController from './components/UserController.vue';
 const loadedUserId = ref("")
 const loadedUserName = ref("")
 
+function setLoadedUser(e: any) {
+  console.log(e)
+  loadedUserId.value = e?.id ?? ""
+  loadedUserName.value = e?.name ?? ""
+}
+
 </script>
 
 <template>
   <h4>projetoComDestinoIndefinidoFrontend</h4>
-  <UserController></UserController>
-  <UserViewer :userId="loadedUserId" :userName="loadedUserName" />
+  <UserController @change="setLoadedUser"></UserController>
+  <UserViewer @change="setLoadedUser" :userId="loadedUserId" :userName="loadedUserName" />
 </template>
 
 <style scoped>
