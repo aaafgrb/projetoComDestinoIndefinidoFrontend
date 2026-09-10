@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-const apiUrl = process.env.API_URL
+const apiUrl = "https://projetocomdestinoindefinido.onrender.com"
 
 export const useApiRequestStore = defineStore('ApiRequest', () => {
   async function getRequest(path: String) {
