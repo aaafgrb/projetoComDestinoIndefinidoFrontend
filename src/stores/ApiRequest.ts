@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 
-// const apiUrl = import.meta.env.VITE_API_URL || 'https://projetocomdestinoindefinido.onrender.com'
-const apiUrl = "http://localhost:7080"
+const apiUrl = 'https://projetocomdestinoindefinido.onrender.com'
+// const apiUrl = "http://localhost:7080"
 export type ApiUser = { id: string; name: string }
 export type ApiComment = { id: string; parentCommentId: string | null; creatorUser: ApiUser; content: string }
 export type ApiNode = { id: string; comment: ApiComment; creatorUserId: string }
@@ -15,7 +15,6 @@ export const useApiRequestStore = defineStore('apiRequest', () => {
 
   async function request(path: string, options: RequestInit = {}): Promise<string> {
     const headers = new Headers(options.headers); headers.set('Content-Type', 'application/json')
-    // console.log(token.value)
     if (token.value != null && token.value != '') headers.set('Authorization', `Bearer ${token.value}`)
     const response = await fetch(`${apiUrl}${path}`, { ...options, headers })
     if (!response.ok) throw new Error((await response.text()) || `Request failed (${response.status})`)
